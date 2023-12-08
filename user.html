@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Img/libralyra.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&family=Varela&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>LibraLyra</title>
+</head>
+<style>
+    body, html, :root {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        background-position: center;
+    }
+    main{
+        font-family: "poppins";
+        width: 100%;
+        height: 100vh;
+    }
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 80px;
+        background-color: #ef823f;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        padding: 0 20px; 
+    }
+
+    nav a{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        position: relative;
+        background: none;
+        font-size: 18px;
+        margin: 17px;
+    }
+    nav a::before,
+    nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 27%;
+        width: 0;
+        height: 3px;
+        background-color: white;
+        transition: width 0.1s ease;
+    }
+    nav a::before {
+        transform: translateX(-50%);
+    }
+    nav a::after {
+        transform: translateX(45%);
+    }
+    nav a:hover::before,
+    nav a:hover::after {
+        width: calc(50%); 
+    }
+    nav a:hover{
+        color: white;
+    }
+button {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+#logout:hover{
+    color: white;
+}
+#tambah{
+    background-color: #6593e8;
+}
+#tambah:hover{
+    background-color: #5c78b5;
+    color: white;
+}
+</style>
+
+<body>
+    <main>
+        <nav>
+            <div class="Logo" style="display: flex;justify-content: center; align-items: center;">
+                <img src="img/libralyra.svg" alt="" style="width: fit-content; height: 55px; display: block;">
+                <h1 style="font-family: 'Hedvig Letters Serif', serif;color: black;font-size: 30px;font-weight: bolder; padding-left: 2px;padding-top: 10px;">Libra<b style="color: white;">Lyra</b></h1>
+            </div>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="#">User</a>
+                <a href="#">Buku</a>
+                <a href="#">Transaksi</a>
+                <a href="#">Histori</a>
+            </div>
+            <button id="logout" style="margin-left: 110px;" class="icon"><i class="fa fa-door-open  fa-2x"></i></button>
+        </nav>
+        <div class="card" style="margin: 20px;padding: 20px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);">
+            <div class="card-header" style="font-size: 20px; font-weight: bold;">
+                Daftar User
+                <a href="userCreate.html" id="tambah" class="btn  float-right" style="width: 32px;height: 30px;color: white; display: flex;align-items: center;justify-content: center;">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hovered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Nomor Telepon</th>
+                                <th>Alamat</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        $(document).ready(function(){
+            let token = localStorage.getItem('token');
+            $.ajax({
+                url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/user",
+                method: "GET",
+                dataType: "json",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(data){
+                    var html = ``;
+                    var no = 1;
+                    $.each(data, function(key, value){
+                        html += `
+                            <tr>
+                                <td>${no++}</td>
+                                <td>${value.username}</td>
+                                <td>${value.email}</td>
+                                <td>${value.nomor_telepon}</td>
+                                <td>${value.alamat}</td>
+                                <td><a href="userEdit.html?id=${value.id}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a> <a href="#" id="delete-user" data-id="${value.id}" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
+                            </tr>
+                            `;
+                    });
+                    $('#tbody').append(html);
+                },
+                error: function(xhr, status, error) {
+                if (xhr.status === 401) {
+                    alert("Anda belum login");
+                    window.location.href = "login.html";
+                } 
+        }
+                
+            });
+        });
+        $(document).ready(function() {
+            $(document).on('click', '#delete-user', function(e) {
+                e.preventDefault();
+                var userConfirmed = confirm('Apakah anda yakin ingin menghapus data User ini?');
+                if (userConfirmed) {
+                    var userId = $(this).data('id');
+                    var formData = { id: userId };
+                    var dataXURL = $.param(formData);
+                    let token = localStorage.getItem('token');
+                    $.ajax({
+                        type: "DELETE",
+                        url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/user",
+                        contentType: "application/x-www-form-urlencoded",
+                        headers: {
+                             'Authorization': 'Bearer ' + token
+                        },
+                        data: dataXURL,
+                        success: function(response) {
+                            alert("User deleted successfully");
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.status === 401) {
+                                alert("Anda belum login");
+                                window.location.href = "login.html";
+                            }else{
+                                var errorMessage = JSON.parse(xhr.responseText).message.id;
+                                alert(`Error deleting user: ${errorMessage}`);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

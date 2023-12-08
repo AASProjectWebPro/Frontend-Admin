@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Img/libralyra.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&family=Varela&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
+    <title>LibraLyra</title>
+</head>
+<style>
+    body, html, :root {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        background-image: url("Img/bg.png");
+        background-position: center;
+    }
+    main{
+        font-family: "poppins";
+        width: 100%;
+        height: 100vh;
+    }
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 80px;
+        background-color: #ef823f;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        padding: 0 20px; 
+    }
+
+    nav a{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        position: relative;
+        background: none;
+        font-size: 18px;
+        margin: 17px;
+    }
+    nav a::before,
+    nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 27%;
+        width: 0;
+        height: 3px;
+        background-color: white;
+        transition: width 0.1s ease;
+    }
+    nav a::before {
+        transform: translateX(-50%);
+    }
+    nav a::after {
+        transform: translateX(45%);
+    }
+    nav a:hover::before,
+    nav a:hover::after {
+        width: calc(50%); 
+    }
+    nav a:hover{
+        color: white;
+    }
+    .main2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       color: white;
+    }
+button {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+#logout:hover{
+    color: white;
+}
+</style>
+<body>
+    <main>
+        <nav>
+            <div class="Logo" style="display: flex;justify-content: center; align-items: center;">
+                <img src="img/libralyra.svg" alt="" style="width: fit-content; height: 55px; display: block;">
+                <h1 style="font-family: 'Hedvig Letters Serif', serif;color: black;font-size: 30px;font-weight: bolder; padding-left: 2px;padding-top: 10px;">Libra<b style="color: white;">Lyra</b></h1>
+            </div>
+            <div>
+                <a href="#">Home</a>
+                <a href="user.html">User</a>
+                <a href="#">Buku</a>
+                <a href="#">Transaksi</a>
+                <a href="#">Histori</a>
+            </div>
+            <button id="logout" style="margin-left: 110px;" class="icon"><i class="fa fa-door-open  fa-2x"></i></button>
+        </nav>
+        <div style="width: fit-content;margin:auto;margin-top: 250px;">
+            <h1 style="color: rgb(46, 46, 46);padding-right: 665px; font-weight: bold;margin-left: 10px;">WELCOME TO<br><span style="color: #eb8441;">LIBRALYRA,</span> ADMIN</h1>
+        </div>
+        <div class="main2" style="margin-bottom: 10px;">
+            <div class="small-box" style="margin-bottom: 0px;margin-right: 10px;margin-left: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #ed8340;width: 495px;">
+                <div class="inner">
+                    <h3>100</h3>
+                    <h4 style="font-size:20px">User</h4>
+                </div>
+                <div class="icon"> <i class="fas fa-users"></i> </div>
+            </div>
+            <div class="small-box" style="margin-bottom: 0px;margin-right: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #6693e9;width: 495px;">
+                <div class="inner">
+                    <h3>150</h3>
+                    <h4 style="font-size:20px">Buku</h4>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+                </div>
+            </div>
+        </div>
+        <div class="main2">
+            <div class="small-box" style="margin-right: 10px;margin-left: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #6693e9;width: 495px;">
+                <div class="inner">
+                    <h3>150</h3>
+                    <h4 style="font-size:20px">Buku</h4>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+            <div class="small-box" style="margin-right: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #ed8340;width: 495px;">
+                <div class="inner">
+                    <h3>100</h3>
+                    <h4 style="font-size:20px">User</h4>
+                </div>
+                <div class="icon"> <i class="fas fa-history"></i> </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
