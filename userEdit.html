@@ -152,7 +152,7 @@ button {
                         },
                     data: formData,
                     success: function(response) {
-                        alert("User created successfully");
+                        alert("User edited successfully");
                         window.location.href = 'user.html';
                     },
                     error: function(xhr, status, error) {
@@ -160,7 +160,7 @@ button {
                             alert("Anda belum login");
                             window.location.href = "login.html";
                     }else{
-                        alert(`Error creating user:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.email) ? ("\n📌"+JSON.parse(xhr.responseText).message.email):""}${(JSON.parse(xhr.responseText).message.password) ? ("\n📌"+JSON.parse(xhr.responseText).message.password):""}${(JSON.parse(xhr.responseText).message.nomor_telepon) ? ("\n📌"+JSON.parse(xhr.responseText).message.nomor_telepon):""}${(JSON.parse(xhr.responseText).message.alamat) ? ("\n📌"+JSON.parse(xhr.responseText).message.alamat):""}\nPlease try again!`);
+                        alert(`Error edit user:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.email) ? ("\n📌"+JSON.parse(xhr.responseText).message.email):""}${(JSON.parse(xhr.responseText).message.password) ? ("\n📌"+JSON.parse(xhr.responseText).message.password):""}${(JSON.parse(xhr.responseText).message.nomor_telepon) ? ("\n📌"+JSON.parse(xhr.responseText).message.nomor_telepon):""}${(JSON.parse(xhr.responseText).message.alamat) ? ("\n📌"+JSON.parse(xhr.responseText).message.alamat):""}\nPlease try again!`);
                     }
                 }
                 });

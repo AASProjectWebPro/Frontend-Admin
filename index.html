@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&family=Varela&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>LibraLyra</title>
 </head>
 <style>
@@ -116,14 +117,14 @@ button {
         <div class="main2" style="margin-bottom: 10px;">
             <div class="small-box" style="margin-bottom: 0px;margin-right: 10px;margin-left: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #ed8340;width: 495px;">
                 <div class="inner">
-                    <h3>100</h3>
+                    <h3 id="user">0</h3>
                     <h4 style="font-size:20px">User</h4>
                 </div>
                 <div class="icon"> <i class="fas fa-users"></i> </div>
             </div>
             <div class="small-box" style="margin-bottom: 0px;margin-right: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #6693e9;width: 495px;">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3 id="buku">0</h3>
                     <h4 style="font-size:20px">Buku</h4>
                 </div>
                 <div class="icon">
@@ -134,8 +135,8 @@ button {
         <div class="main2">
             <div class="small-box" style="margin-right: 10px;margin-left: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #6693e9;width: 495px;">
                 <div class="inner">
-                    <h3>150</h3>
-                    <h4 style="font-size:20px">Buku</h4>
+                    <h3 id="transaksi">0</h3>
+                    <h4 style="font-size:20px">Transaksi</h4>
                 </div>
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
@@ -143,12 +144,42 @@ button {
             </div>
             <div class="small-box" style="margin-right: 10px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); background-color: #ed8340;width: 495px;">
                 <div class="inner">
-                    <h3>100</h3>
-                    <h4 style="font-size:20px">User</h4>
+                    <h3 id="histori">0</h3>
+                    <h4 style="font-size:20px">Histori</h4>
                 </div>
-                <div class="icon"> <i class="fas fa-history"></i> </div>
+                <div class="icon"> <i class="fas fa-history"></i></div>
             </div>
         </div>
     </main>
 </body>
+<script>
+    $(document).ready(function(){
+        let token = localStorage.getItem('token');
+        $.ajax({
+            url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/dashboard",
+            method: "GET",
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            success: function(data){
+                var element = document.getElementById("buku");
+                element.innerHTML = data.buku;
+                var element = document.getElementById("user");
+                element.innerHTML = data.user;
+                var element = document.getElementById("transaksi");
+                element.innerHTML = data.transaksi;
+                var element = document.getElementById("histori");
+                element.innerHTML = data.history;
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status === 401) {
+                    alert("Anda belum login");
+                    window.location.href = "login.html";
+                } 
+            }
+            
+        });
+    });
+</script>
 </html>
