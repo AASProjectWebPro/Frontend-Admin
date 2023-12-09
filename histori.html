@@ -107,7 +107,7 @@ button {
                 <a href="index.html">Home</a>
                 <a href="user.html">User</a>
                 <a href="#">Buku</a>
-                <a href="#">Transaksi</a>
+                <a href="transaksi.html">Transaksi</a>
                 <a href="#">Histori</a>
             </div>
             <button id="logout" style="margin-left: 110px;" class="icon"><i class="fa fa-door-open  fa-2x"></i></button>
@@ -122,8 +122,10 @@ button {
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Username</th>
                                 <th>Email</th>
                                 <th>ISBN Buku</th>
+                                <th>Judul Buku</th>
                                 <th>Tanggal Peminjaman</th>
                                 <th>Tanggal Pengembalian</th>
                                 <th>Aksi</th>
@@ -154,8 +156,10 @@ button {
                         html += `
                             <tr>
                                 <td>${no++}</td>
+                                <td>${value.username}</td>
                                 <td>${value.email}</td>
                                 <td>${value.isbn_buku}</td>
+                                <td>${value.judul}</td>
                                 <td>${value.tanggal_peminjaman}</td>
                                 <td>${value.tanggal_pengembalian}</td>
                                 <td><a href="#" id="delete-user" data-id="${value.id}" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
