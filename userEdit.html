@@ -117,8 +117,8 @@ button {
             $.ajax({
                 url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/user?id=" + userId,
                 headers: {
-                             'Authorization': 'Bearer ' + token
-                        },
+                    'Authorization': 'Bearer ' + token
+                },
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
