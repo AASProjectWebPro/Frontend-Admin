@@ -203,7 +203,7 @@ button {
                         },
                         data: dataXURL,
                         success: function(response) {
-                            alert("User deleted successfully");
+                            alert("Book deleted successfully");
                             location.reload();
                         },
                         error: function(xhr, status, error) {
@@ -212,7 +212,7 @@ button {
                                 window.location.href = "login.html";
                             }else{
                                 var errorMessage = JSON.parse(xhr.responseText).message.id;
-                                alert(`Error deleting user: ${errorMessage}`);
+                                alert(`Error deleting book: ${errorMessage}`);
                             }
                         }
                     });
