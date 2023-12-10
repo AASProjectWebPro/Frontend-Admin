@@ -110,7 +110,7 @@ button {
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'user.html';">Kembali</button>
+                                <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'buku.html';">Kembali</button>
                                 <button id="submit" type="button" style="color: white; font-weight: 4X00;" class="btn float-right">Simpan</button>
                             </div>
                         </div>
@@ -128,21 +128,21 @@ button {
                 return window.location.href = 'buku.html';
             }
             $.ajax({
-                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku?id=` + userId,
+                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku?id=` + bookId,
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
-                    $('#isbn').val(data[0].isbn);
-                    $('#judul').val(data[0].email);
-                    $('#pengarang').val(data[0].pengarang);
-                    $('#penerbit').val(data[0].penerbit);
-                    $('#tahun_terbit').val(data[0].tahun_terbit);
-                    $('#jenis').val(data[0].jenis);
-                    $('#deskripsi').val(data[0].deskripsi);
-                    $('#stock').val(data[0].stock);
+                    $('#isbn').val(data.isbn);
+                    $('#judul').val(data.judul);
+                    $('#pengarang').val(data.pengarang);
+                    $('#penerbit').val(data.penerbit);
+                    $('#tahun_terbit').val(data.tahun_terbit);
+                    $('#jenis').val(data.jenis);
+                    $('#deskripsi').val(data.deskripsi);
+                    $('#stock').val(data.stock);
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 401) {
