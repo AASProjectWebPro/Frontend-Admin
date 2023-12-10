@@ -69,35 +69,47 @@ button {
         <div class="container">
             <div class="row justify-content-center" >
                 <div class="col-md-5">
-                    <form id="userForm" >
+                    <form id="bookForm" >
                         <div class="card shadow" >
                             <div class="card-header text-white" style="background-color: #ed8340; padding: 20px;">
-                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Tambah User</h5>
+                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Tambah Buku</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+                                    <label for="isbn">Isbn</label>
+                                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan Isbn buku" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                                    <label for="judul">Judul Buku</label>
+                                    <textarea class="form-control" id="judul" name="judul" placeholder="Masukkan Judul buku" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                                    <label for="pengarang">Pengarang</label> 
+                                    <textarea class="form-control" id="pengarang" name="pengarang" placeholder="Masukkan Nama Pengarang" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nomor_telepon">Nomor Telepon</label>
-                                    <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Enter Nomor Telepon" required>
+                                    <label for="penerbit">Penerbit</label>  
+                                    <textarea class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Nama Penerbit" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" placeholder="Enter Alamat" required></textarea>
+                                    <label for="tahun_terbit">Tahun Terbit</label>
+                                    <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" placeholder="Masukkan Tahun Penerbitan" required>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label for="jenis">Jenis Buku</label>
+                                    <input type="text" class="form-control" id="jenis" name="jenis" placeholder="Masukkan Jenis Buku" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi Buku</label>  
+                                    <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi buku" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock">Stock Buku</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" min="0"  placeholder="Masukkan Stock buku" required>
+                                </div>
+                            </div>                          
                             <div class="card-footer">
-                                <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'user.html';">Kembali</button>
+                                <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'buku.html';">Kembali</button>
                                 <button id="submit" type="button" style="color: white; font-weight: 4X00;" class="btn float-right">Simpan</button>
                             </div>
                         </div>
@@ -109,26 +121,26 @@ button {
     <script>
         $(document).ready(function() {
                 $(document).on('click', '#submit', function() {
-                    var formData = $('#userForm').serialize();
+                    var formData = $('#bookForm').serialize();
                     let token = localStorage.getItem('token');
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/buku",
                         contentType: "application/x-www-form-urlencoded",
                         headers: {
                              'Authorization': 'Bearer ' + token
                         },
                         data: formData,
                         success: function(response) {
-                            alert("User created successfully");
-                            window.location.href = 'user.html';
+                            alert("Book created successfully");
+                            window.location.href = 'buku.html';
                         },
                         error: function(xhr, status, error) {
                             if (xhr.status === 401) {
                                 alert("Anda belum login");
                                 window.location.href = "login.html";
                             }else{
-                                alert(`Error creating user:${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.email) ? ("\n📌"+JSON.parse(xhr.responseText).message.email):""}${(JSON.parse(xhr.responseText).message.password) ? ("\n📌"+JSON.parse(xhr.responseText).message.password):""}${(JSON.parse(xhr.responseText).message.nomor_telepon) ? ("\n📌"+JSON.parse(xhr.responseText).message.nomor_telepon):""}${(JSON.parse(xhr.responseText).message.alamat) ? ("\n📌"+JSON.parse(xhr.responseText).message.alamat):""}\nPlease try again!`);
+                                alert(`Error creating book:${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}\nPlease try again!`);
                             }
                         }
                     });

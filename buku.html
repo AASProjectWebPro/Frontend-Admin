@@ -105,8 +105,8 @@ button {
             </div>
             <div>
                 <a href="index.html">Home</a>
-                <a href="#">User</a>
-                <a href="buku.html">Buku</a>
+                <a href="user.html">User</a>
+                <a href="#">Buku</a>
                 <a href="transaksi.html">Transaksi</a>
                 <a href="histori.html">Histori</a>
             </div>
@@ -114,8 +114,8 @@ button {
         </nav>
         <div class="card" style="margin: 20px;padding: 20px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);">
             <div class="card-header" style="font-size: 20px; font-weight: bold;">
-                Daftar User
-                <a href="userCreate.html" id="tambah" class="btn  float-right" style="width: 32px;height: 30px;color: white; display: flex;align-items: center;justify-content: center;">
+                Daftar Buku
+                <a href="bukuCreate.html" id="tambah" class="btn  float-right" style="width: 32px;height: 30px;color: white; display: flex;align-items: center;justify-content: center;">
                     <i class="fa fa-plus"></i>
                 </a>
             </div>
@@ -125,10 +125,14 @@ button {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Nomor Telepon</th>
-                                <th>Alamat</th>
+                                <th>Isbn</th>
+                                <th>Judul</th>
+                                <th>Pengarang</th>
+                                <th>Penerbit</th>
+                                <th>Tahun Terbit</th>
+                                <th>Jenis</th>
+                                <th>Deskripsi</th>
+                                <th>Stock</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -144,7 +148,7 @@ button {
         $(document).ready(function(){
             let token = localStorage.getItem('token');
             $.ajax({
-                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/buku",
                 method: "GET",
                 dataType: "json",
                 
@@ -158,11 +162,15 @@ button {
                         html += `
                             <tr>
                                 <td>${no++}</td>
-                                <td>${value.username}</td>
-                                <td>${value.email}</td>
-                                <td>${value.nomor_telepon}</td>
-                                <td>${value.alamat}</td>
-                                <td><a href="userEdit.html?id=${value.id}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a> <a href="#" id="delete-user" data-id="${value.id}" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
+                                <td>${value.isbn}</td>
+                                <td>${value.judul}</td>
+                                <td>${value.pengarang}</td>
+                                <td>${value.penerbit}</td>
+                                <td>${value.tahun_terbit}</td>
+                                <td>${value.jenis}</td>
+                                <td>${value.deskripsi}</td>
+                                <td>${value.stock}</td>
+                                <td><a href="bukuEdit.html?id=${value.id}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a> <a href="#" id="delete-buku" data-id="${value.id}" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
                             </tr>
                             `;
                     });
@@ -178,24 +186,24 @@ button {
             });
         });
         $(document).ready(function() {
-            $(document).on('click', '#delete-user', function(e) {
+            $(document).on('click', '#delete-buku', function(e) {
                 e.preventDefault();
-                var userConfirmed = confirm('Apakah anda yakin ingin menghapus data User ini?');
+                var userConfirmed = confirm('Apakah anda yakin ingin menghapus data buku ini?');
                 if (userConfirmed) {
-                    var userId = $(this).data('id');
-                    var formData = { id: userId };
+                    var bukuId = $(this).data('id');
+                    var formData = { id: bukuId };
                     var dataXURL = $.param(formData);
                     let token = localStorage.getItem('token');
                     $.ajax({
                         type: "DELETE",
-                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/buku",
                         contentType: "application/x-www-form-urlencoded",
                         headers: {
                              'Authorization': 'Bearer ' + token
                         },
                         data: dataXURL,
                         success: function(response) {
-                            alert("User deleted successfully");
+                            alert("Book deleted successfully");
                             location.reload();
                         },
                         error: function(xhr, status, error) {
@@ -204,7 +212,7 @@ button {
                                 window.location.href = "login.html";
                             }else{
                                 var errorMessage = JSON.parse(xhr.responseText).message.id;
-                                alert(`Error deleting user: ${errorMessage}`);
+                                alert(`Error deleting book: ${errorMessage}`);
                             }
                         }
                     });
