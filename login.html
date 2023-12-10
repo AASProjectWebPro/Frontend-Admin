@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&family=Varela&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="init.js"></script>
     <title>LibraLyra</title>
     <style>
         body{
@@ -98,7 +99,7 @@
             var formData = $('#userForm').serialize();
             $.ajax({
                 type: "POST",
-                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/auth/login",
+                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/auth/login`,
                 contentType: "application/x-www-form-urlencoded",
                 data: formData,
                 success: function(response) {

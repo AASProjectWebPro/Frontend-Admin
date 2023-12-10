@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="init.js"></script>
     <title>LibraLyra</title>
 </head>
 <style>
@@ -144,7 +145,7 @@ button {
         $(document).ready(function(){
             let token = localStorage.getItem('token');
             $.ajax({
-                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/user`,
                 method: "GET",
                 dataType: "json",
                 
@@ -188,7 +189,7 @@ button {
                     let token = localStorage.getItem('token');
                     $.ajax({
                         type: "DELETE",
-                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                        url: `http://localhost/${parentPath}/Backend/index.php/api/admin/user`,
                         contentType: "application/x-www-form-urlencoded",
                         headers: {
                              'Authorization': 'Bearer ' + token
