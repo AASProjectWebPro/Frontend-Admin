@@ -82,15 +82,15 @@ button {
                                 </div>
                                 <div class="form-group">
                                     <label for="judul">Judul Buku</label>
-                                    <textarea class="form-control" id="judul" name="judul" placeholder="Masukkan Judul buku" required></textarea>
+                                    <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Judul buku" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="pengarang">Pengarang</label> 
-                                    <textarea class="form-control" id="pengarang" name="pengarang" placeholder="Masukkan Nama Pengarang" required></textarea>
+                                    <input type="text" class="form-control" id="pengarang" name="pengarang" placeholder="Masukkan Nama Pengarang" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="penerbit">Penerbit</label>  
-                                    <textarea class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Nama Penerbit" required></textarea>
+                                    <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Nama Penerbit" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun_terbit">Tahun Terbit</label>
@@ -177,7 +177,7 @@ button {
                             alert("Anda belum login");
                             window.location.href = "login.html";
                     }else{
-                        alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}\nPlease try again!`);
+                        alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}\nPlease try again!`);
                     }
                 }
                 });
