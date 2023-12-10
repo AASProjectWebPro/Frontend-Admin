@@ -106,7 +106,7 @@ button {
             <div>
                 <a href="index.html">Home</a>
                 <a href="user.html">User</a>
-                <a href="#">Buku</a>
+                <a href="buku.html">Buku</a>
                 <a href="#">Transaksi</a>
                 <a href="histori.html">Histori</a>
             </div>
@@ -145,7 +145,7 @@ button {
         $(document).ready(function(){
             let token = localStorage.getItem('token');
             $.ajax({
-                url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/TransaksiPeminjaman",
+                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/TransaksiPeminjaman",
                 method: "GET",
                 dataType: "json",
                 
@@ -190,7 +190,7 @@ button {
                     let token = localStorage.getItem('token');
                     $.ajax({
                         type: "DELETE",
-                        url: "http://localhost/AASProjectWebPro/Backend/index.php/api/admin/TransaksiPeminjaman/pengembalian",
+                        url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/TransaksiPeminjaman/pengembalian",
                         contentType: "application/x-www-form-urlencoded",
                         headers: {
                              'Authorization': 'Bearer ' + token

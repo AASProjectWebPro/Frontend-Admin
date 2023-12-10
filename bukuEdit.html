@@ -69,31 +69,43 @@ button {
         <div class="container">
             <div class="row justify-content-center" >
                 <div class="col-md-5">
-                    <form id="userForm" >
+                    <form id="bookForm" >
                         <div class="card shadow" >
                             <div class="card-header text-white" style="background-color: #ed8340; padding: 20px;">
-                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Edit User</h5>
+                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Edit Buku </h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+                                    <label for="isbn">Isbn</label>
+                                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan Isbn buku" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                                    <label for="judul">Judul Buku</label>
+                                    <textarea class="form-control" id="judul" name="judul" placeholder="Masukkan Judul buku" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                                    <label for="pengarang">Pengarang</label> 
+                                    <textarea class="form-control" id="pengarang" name="pengarang" placeholder="Masukkan Nama Pengarang" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nomor_telepon">Nomor Telepon</label>
-                                    <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Enter Nomor Telepon" required>
+                                    <label for="penerbit">Penerbit</label>  
+                                    <textarea class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Nama Penerbit" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" placeholder="Enter Alamat" required></textarea>
+                                    <label for="tahun_terbit">Tahun Terbit</label>
+                                    <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" placeholder="Masukkan Tahun Penerbitan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jenis">Jenis Buku</label>
+                                    <input type="text" class="form-control" id="jenis" name="jenis" placeholder="Masukkan Jenis Buku" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi Buku</label>  
+                                    <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi buku" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock">Stock Buku</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" min="0"  placeholder="Masukkan Stock buku" required>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -109,23 +121,27 @@ button {
     <script>
         $(document).ready(function () {
             let token = localStorage.getItem('token');
-            var userId = new URLSearchParams(window.location.search).get('id');
-            if (!userId) {
-                alert("User ID not found");
-                return window.location.href = 'user.html';
+            var bookId = new URLSearchParams(window.location.search).get('id');
+            if (!bookId) {
+                alert("Book ID not found");
+                return window.location.href = 'buku.html';
             }
             $.ajax({
-                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user?id=" + userId,
+                url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/buku?id=" + userId,
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
-                    $('#username').val(data[0].username);
-                    $('#email').val(data[0].email);
-                    $('#nomor_telepon').val(data[0].nomor_telepon);
-                    $('#alamat').val(data[0].alamat);
+                    $('#isbn').val(data[0].isbn);
+                    $('#judul').val(data[0].email);
+                    $('#pengarang').val(data[0].pengarang);
+                    $('#penerbit').val(data[0].penerbit);
+                    $('#tahun_terbit').val(data[0].tahun_terbit);
+                    $('#jenis').val(data[0].jenis);
+                    $('#deskripsi').val(data[0].deskripsi);
+                    $('#stock').val(data[0].stock);
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 401) {
@@ -138,29 +154,29 @@ button {
         $(document).ready(function() {
             $(document).on('click', '#submit', function() {
                 var idParameter = new URLSearchParams(window.location.search).get('id');
-                var formData = $('#userForm').serialize();
+                var formData = $('#bookForm').serialize();
                 if (idParameter) {
                     formData += '&id=' + idParameter;
                 }
                 let token = localStorage.getItem('token');
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/user",
+                    url: "http://localhost/Backend-develop_buku/Backend/index.php/api/admin/buku",
                     contentType: "application/x-www-form-urlencoded",
                     headers: {
                              'Authorization': 'Bearer ' + token
                         },
                     data: formData,
                     success: function(response) {
-                        alert("User edited successfully");
-                        window.location.href = 'user.html';
+                        alert("Book edited successfully");
+                        window.location.href = 'buku.html';
                     },
                     error: function(xhr, status, error) {
                         if (xhr.status === 401) {
                             alert("Anda belum login");
                             window.location.href = "login.html";
                     }else{
-                        alert(`Error edit user:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.email) ? ("\n📌"+JSON.parse(xhr.responseText).message.email):""}${(JSON.parse(xhr.responseText).message.password) ? ("\n📌"+JSON.parse(xhr.responseText).message.password):""}${(JSON.parse(xhr.responseText).message.nomor_telepon) ? ("\n📌"+JSON.parse(xhr.responseText).message.nomor_telepon):""}${(JSON.parse(xhr.responseText).message.alamat) ? ("\n📌"+JSON.parse(xhr.responseText).message.alamat):""}\nPlease try again!`);
+                        alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}\nPlease try again!`);
                     }
                 }
                 });
