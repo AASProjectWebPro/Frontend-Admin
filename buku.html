@@ -95,6 +95,17 @@ button {
     background-color: #5c78b5;
     color: white;
 }
+.image-container {
+        width: 100px; /* Ganti dengan lebar yang diinginkan */
+        height: 100px; /* Ganti dengan tinggi yang diinginkan */
+        overflow: hidden;
+    }
+
+    .image-container img {
+        width: 100%; /* Gambar akan memiliki lebar 100% dari container */
+        height: auto; /* Memastikan rasio aspek gambar terjaga */
+        object-fit: cover; /* Atur objek yang tepat untuk memastikan gambar mencakup kotak */
+    }
 </style>
 
 <body>
@@ -128,6 +139,7 @@ button {
                                 <th>No</th>
                                 <th>Isbn</th>
                                 <th>Judul</th>
+                                <th>Gambar</th>
                                 <th>Pengarang</th>
                                 <th>Penerbit</th>
                                 <th>Tahun Terbit</th>
@@ -165,6 +177,7 @@ button {
                                 <td>${no++}</td>
                                 <td>${value.isbn}</td>
                                 <td>${value.judul}</td>
+                                <td><img  width="200" height="200" src="${value.gambar}" alt=""></td>
                                 <td>${value.pengarang}</td>
                                 <td>${value.penerbit}</td>
                                 <td>${value.tahun_terbit}</td>

@@ -73,10 +73,11 @@ button {
                     <form id="bookForm" >
                         <div class="card shadow" >
                             <div class="card-header text-white" style="background-color: #ed8340; padding: 20px;">
-                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Edit Buku </h5>
+                                <h5 class="mb-0" style="text-align: center; font-weight: bold;">Edit Buku</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="isbn">Isbn</label>
                                     <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan Isbn buku" required>
                                 </div>
@@ -115,14 +116,20 @@ button {
                             </div>
                         </div>
                     </form>
+                    <div class="form-group">
+                        <label for="file">Gambar Buku</label>
+                        <input style="padding-bottom: 35px; padding-left: 6px;" type="file" class="form-control" id="file" name="file" min="0"  placeholder="Masukkan Stock buku" required>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
     <script>
+        // read data ygy
         $(document).ready(function () {
             let token = localStorage.getItem('token');
             var bookId = new URLSearchParams(window.location.search).get('id');
+            document.getElementById('id').value = bookId;
             if (!bookId) {
                 alert("Book ID not found");
                 return window.location.href = 'buku.html';
@@ -152,37 +159,49 @@ button {
                 }
             });
         });
+        // update data :v
         $(document).ready(function() {
             $(document).on('click', '#submit', function() {
-                var idParameter = new URLSearchParams(window.location.search).get('id');
-                var formData = $('#bookForm').serialize();
-                if (idParameter) {
-                    formData += '&id=' + idParameter;
-                }
                 let token = localStorage.getItem('token');
-                $.ajax({
-                    type: "PUT",
-                    url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku`,
-                    contentType: "application/x-www-form-urlencoded",
-                    headers: {
-                             'Authorization': 'Bearer ' + token
-                        },
-                    data: formData,
-                    success: function(response) {
-                        alert("Book edited successfully");
-                        window.location.href = 'buku.html';
-                    },
-                    error: function(xhr, status, error) {
-                        if (xhr.status === 401) {
-                            alert("Anda belum login");
-                            window.location.href = "login.html";
-                    }else{
-                        alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}\nPlease try again!`);
+                const formData = new FormData(document.getElementById('bookForm'));
+                const fileInput = document.getElementById('file');
+                const file = fileInput.files[0];
+                if(file!=undefined){
+                    const fileName = file.name;
+                    const reader = new FileReader();
+                    reader.onload = function(){
+                    formData.append('file', reader.result);
+                    formData.append('file_name', fileName); 
+                    send(formData, token);
                     }
+                    reader.readAsDataURL(file); //read sekalian jadikan bs64
                 }
-                });
+                else{
+                    send(formData, token);
+                }
             });
-            });
+        });
+        // send ajax soalnya klo digabung kena efek lazy
+        function send(formData, token) {
+            const serializedString = new URLSearchParams(formData).toString();
+            $.ajax({
+                type: "PUT",
+                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku`,
+                contentType: "application/x-www-form-urlencoded",
+                processData: false,
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: serializedString,
+                success: function(response) {
+                    alert("Book created successfully");
+                    window.location.href = 'buku.html';
+                },
+                error: function(xhr, status, error) {
+                    alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}${(JSON.parse(xhr.responseText).message.file) ? ("\n📌"+JSON.parse(xhr.responseText).message.file):""}${(JSON.parse(xhr.responseText).message.file_extension) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_extension):""}${(JSON.parse(xhr.responseText).message.file_size) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_size):""}\nPlease try again!`);
+                }
+        });
+    }
     </script>
 </body>
 </html>
