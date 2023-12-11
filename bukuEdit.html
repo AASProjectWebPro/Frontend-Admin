@@ -109,10 +109,6 @@ button {
                                     <label for="stock">Stock Buku</label>
                                     <input type="number" class="form-control" id="stock" name="stock" min="0"  placeholder="Masukkan Stock buku" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="file">Gambar Buku</label>
-                                    <input style="padding-bottom: 35px; padding-left: 6px;" type="file" class="form-control" id="file" name="file" min="0"  placeholder="Masukkan Stock buku" required>
-                                </div>
                             </div>
                             <div class="card-footer">
                                 <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'buku.html';">Kembali</button>
@@ -120,11 +116,16 @@ button {
                             </div>
                         </div>
                     </form>
+                    <div class="form-group">
+                        <label for="file">Gambar Buku</label>
+                        <input style="padding-bottom: 35px; padding-left: 6px;" type="file" class="form-control" id="file" name="file" min="0"  placeholder="Masukkan Stock buku" required>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
     <script>
+        // read data ygy
         $(document).ready(function () {
             let token = localStorage.getItem('token');
             var bookId = new URLSearchParams(window.location.search).get('id');
@@ -158,63 +159,49 @@ button {
                 }
             });
         });
-        // $(document).ready(function() {
-        //         $(document).on('click', '#submit', function() {
-        //             const formData = new FormData(document.getElementById('bookForm'));
-        //             let token = localStorage.getItem('token');
-        //             $.ajax({
-        //                 type: "PUT",
-        //                 url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku`,
-        //                 contentType: false,
-        //                 processData: false,
-        //                 headers: {
-        //                      'Authorization': 'Bearer ' + token
-        //                 },
-        //                 data: formData,
-        //                 success: function(response) {
-        //                     alert("Book created successfully");
-        //                     // window.location.href = 'buku.html';
-        //                 },
-        //                 error: function(xhr, status, error) {
-        //                     if (xhr.status === 401) {
-        //                         alert("Anda belum login");
-        //                         window.location.href = "login.html";
-        //                     }else{
-        //                         alert(`Error add buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}${(JSON.parse(xhr.responseText).message.file) ? ("\n📌"+JSON.parse(xhr.responseText).message.file):""}${(JSON.parse(xhr.responseText).message.file_extension) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_extension):""}${(JSON.parse(xhr.responseText).message.file_size) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_size):""}\nPlease try again!`);
-        //                     }
-        //                 }
-        //             });
-        //         });
-        //     });
-
+        // update data :v
         $(document).ready(function() {
-                $(document).on('click', '#submit', function() {
-                    const formData = new FormData(document.getElementById('bookForm'));
-                    let token = localStorage.getItem('token');
-                    $.ajax({
-                        type: "POST",
-                        url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku/edit`,
-                        contentType: false,
-                        processData: false,
-                        headers: {
-                             'Authorization': 'Bearer ' + token
-                        },
-                        data: formData,
-                        success: function(response) {
-                            alert("Book edited successfully");
-                            window.location.href = 'buku.html';
-                        },
-                        error: function(xhr, status, error) {
-                            if (xhr.status === 401) {
-                                alert("Anda belum login");
-                                window.location.href = "login.html";
-                            }else{
-                                alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}${(JSON.parse(xhr.responseText).message.file) ? ("\n📌"+JSON.parse(xhr.responseText).message.file):""}${(JSON.parse(xhr.responseText).message.file_extension) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_extension):""}${(JSON.parse(xhr.responseText).message.file_size) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_size):""}\nPlease try again!`);
-                            }
-                        }
-                    });
-                });
+            $(document).on('click', '#submit', function() {
+                let token = localStorage.getItem('token');
+                const formData = new FormData(document.getElementById('bookForm'));
+                const fileInput = document.getElementById('file');
+                const file = fileInput.files[0];
+                if(file!=undefined){
+                    const fileName = file.name;
+                    const reader = new FileReader();
+                    reader.onload = function(){
+                    formData.append('file', reader.result);
+                    formData.append('file_name', fileName); 
+                    send(formData, token);
+                    }
+                    reader.readAsDataURL(file); //read sekalian jadikan bs64
+                }
+                else{
+                    send(formData, token);
+                }
             });
+        });
+        // send ajax soalnya klo digabung kena efek lazy
+        function send(formData, token) {
+            const serializedString = new URLSearchParams(formData).toString();
+            $.ajax({
+                type: "PUT",
+                url: `http://localhost/${parentPath}/Backend/index.php/api/admin/buku`,
+                contentType: "application/x-www-form-urlencoded",
+                processData: false,
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: serializedString,
+                success: function(response) {
+                    alert("Book created successfully");
+                    window.location.href = 'buku.html';
+                },
+                error: function(xhr, status, error) {
+                    alert(`Error edit buku:${(JSON.parse(xhr.responseText).message.id) ? ("\n📌"+JSON.parse(xhr.responseText).message.id):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.judul) ? ("\n📌"+JSON.parse(xhr.responseText).message.judul):""}${(JSON.parse(xhr.responseText).message.pengarang) ? ("\n📌"+JSON.parse(xhr.responseText).message.pengarang):""}${(JSON.parse(xhr.responseText).message.penerbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.penerbit):""}${(JSON.parse(xhr.responseText).message.tahun_terbit) ? ("\n📌"+JSON.parse(xhr.responseText).message.tahun_terbit):""}${(JSON.parse(xhr.responseText).message.jenis) ? ("\n📌"+JSON.parse(xhr.responseText).message.jenis):""}${(JSON.parse(xhr.responseText).message.deskripsi) ? ("\n📌"+JSON.parse(xhr.responseText).message.deskripsi):""}${(JSON.parse(xhr.responseText).message.stock) ? ("\n📌"+JSON.parse(xhr.responseText).message.stock):""}${(JSON.parse(xhr.responseText).message.file) ? ("\n📌"+JSON.parse(xhr.responseText).message.file):""}${(JSON.parse(xhr.responseText).message.file_extension) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_extension):""}${(JSON.parse(xhr.responseText).message.file_size) ? ("\n📌"+JSON.parse(xhr.responseText).message.file_size):""}\nPlease try again!`);
+                }
+        });
+    }
     </script>
 </body>
 </html>
