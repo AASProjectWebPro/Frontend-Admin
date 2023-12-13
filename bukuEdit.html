@@ -109,6 +109,10 @@ button {
                                     <label for="stock">Stock Buku</label>
                                     <input type="number" class="form-control" id="stock" name="stock" min="0"  placeholder="Masukkan Stock buku" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="file">Gambar Buku</label>
+                                    <input style="padding-bottom: 35px; padding-left: 6px;" type="file" class="form-control" id="file" name="file" min="0"  placeholder="Masukkan Stock buku" required>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button id="kembali" type="button" style="font-weight: 4X00;" class="btn" onclick="return window.location.href = 'buku.html';">Kembali</button>
@@ -116,10 +120,6 @@ button {
                             </div>
                         </div>
                     </form>
-                    <div class="form-group">
-                        <label for="file">Gambar Buku</label>
-                        <input style="padding-bottom: 35px; padding-left: 6px;" type="file" class="form-control" id="file" name="file" min="0"  placeholder="Masukkan Stock buku" required>
-                    </div>
                 </div>
             </div>
         </div>
@@ -166,6 +166,7 @@ button {
                 const formData = new FormData(document.getElementById('bookForm'));
                 const fileInput = document.getElementById('file');
                 const file = fileInput.files[0];
+                formData.delete('file');
                 if(file!=undefined){
                     const fileName = file.name;
                     const reader = new FileReader();
