@@ -28,7 +28,6 @@
             align-items: center;
         }
         .container{
-            border: 2px solid black;
             padding-left: 0px;
             width: 490px;
             height: 450px;
@@ -39,13 +38,13 @@
             background-size: cover;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
             background-position: center;
+            border: 1px solid black;
         }
         input{
-            border: 2px solid black;
+            border: 1px solid black;
         }
         button{
             cursor: pointer;
-            border: 2px solid black;
         }
         input:focus{
             outline: none; 
@@ -58,7 +57,6 @@
             font-weight: 500;
         }
         #loginButton{
-            color: white;
             background-color: #6691e3;}
         #loginButton:hover{
             background-color: #3576df;
@@ -73,7 +71,7 @@
             </div>
             <div style="padding-left: 17px;">
                 <h1 style="font-weight: 600;width: fit-content;margin-bottom: 0px; margin-left: 6%;padding: 0px;margin-top: 10px; font-size: 30px;">Login</h1>
-                <h2 style="font-weight: unset;width: fit-content;margin-bottom: 0px; margin-left: 6%;margin-top: 0px;font-size: 20px;padding: 0px;">to get started</h2>
+                <h2 style="font-weight: unset;width: fit-content;margin-bottom: 0px; margin-left: 6%;margin-top: 0px;font-size: 20px;padding: 0px;">for admin only</h2>
                 <form id="userForm" action="">
                     <div>
                         <input placeholder="Email" type="email" name="email" id="email" style="margin-left: 6%;margin-top: 10px;width: 394px;margin-top: 10px;height: 40px;border-radius: 10px;">
@@ -82,7 +80,7 @@
                         <input placeholder="Password" type="password" name="password" id="password" style="margin-left: 6%;width: fit-content;margin-top: 10px;width: 394px;height: 40px;border-radius: 10px;">
                     </div>
                     <div style="margin-top: 10px;margin-bottom: 20px;">
-                        <button id="loginButton" type="button" style="font-size: 17px; font-weight: 600; margin-left: 6%; width: fit-content; margin-top: 10px; width: 400px; height: 40px; border-radius: 10px; 
+                        <button id="loginButton" type="button" style="outline: none;font-size: 17px; font-weight: 600; margin-left: 6%; width: fit-content; margin-top: 10px; width: 400px; height: 40px; border-radius: 10px; 
                         ">LOGIN</button>
                     </div>
                 </form>
