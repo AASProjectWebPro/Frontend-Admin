@@ -120,7 +120,7 @@ button {
                                 alert('Error creating user:\n📌User tersebut masih meminjam buku\nPlease try again!');
                             }
                             else{
-                                alert(`Error creating user:${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}\nPlease try again!`);
+                                alert(`Error creating user:${(JSON.parse(xhr.responseText).message.username) ? ("\n📌"+JSON.parse(xhr.responseText).message.username):""}${(JSON.parse(xhr.responseText).message.isbn) ? ("\n📌"+JSON.parse(xhr.responseText).message.isbn):""}${(JSON.parse(xhr.responseText).message.id_buku) ? ("\n📌"+JSON.parse(xhr.responseText).message.id_buku):""}\nPlease try again!`);
                             }
                         }
                     });
