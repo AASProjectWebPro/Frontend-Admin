@@ -130,6 +130,7 @@ button {
                                 <th>Email</th>
                                 <th>ISBN Buku</th>
                                 <th>Judul Buku</th>
+                                <th>Status</th>
                                 <th>Tanggal Peminjaman</th>
                                 <th>Aksi</th>
                             </tr>
@@ -164,8 +165,9 @@ button {
                                 <td>${value.email}</td>
                                 <td>${value.isbn}</td>
                                 <td>${value.judul}</td>
+                                <td>${value.status}</td>
                                 <td>${value.tanggal_peminjaman}</td>
-                                <td><a href="#" id="pengembalian-user" data-id="${value.id}" class="btn btn-sm btn-success">Pengembalian</i></a></td>
+                                ${value.status=='pending' ? `<td><a href="#" id="approve" data-id="${value.id}" class="btn btn-sm btn-primary">Approve</i></a><a href="#" id="batal" data-id="${value.id}" style="margin-left: 10px" class="btn btn-sm btn-danger">Batalkan</i></a></td>`:`<td><a href="#" id="pengembalian-user" data-id="${value.id}" class="btn btn-sm btn-success">Pengembalian</i></a></td>`}
                             </tr>
                             `;
                     });
@@ -180,6 +182,7 @@ button {
                 
             });
         });
+        //pengembalian
         $(document).ready(function() {
             $(document).on('click', '#pengembalian-user', function(e) {
                 e.preventDefault();
@@ -195,6 +198,76 @@ button {
                         contentType: "application/x-www-form-urlencoded",
                         headers: {
                              'Authorization': 'Bearer ' + token
+                        },
+                        data: dataXURL,
+                        success: function(response) {
+                            alert("Operation success!");
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.status === 401) {
+                                alert("Anda belum login");
+                                window.location.href = "login.html";
+                            }else{
+                                var errorMessage = JSON.parse(xhr.responseText).message.id;
+                                alert(`Error deleting user: ${errorMessage}`);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        //approve
+        $(document).ready(function() {
+            $(document).on('click', '#approve', function(e) {
+                e.preventDefault();
+                var userConfirmed = confirm('Apakah anda yakin user ini sudah mengambil buku?');
+                if (userConfirmed) {
+                    var userId = $(this).data('id');
+                    var formData = { id: userId };
+                    var dataXURL = $.param(formData);
+                    let token = localStorage.getItem('token');
+                    $.ajax({
+                        type: "PATCH",
+                        url: `http://localhost/${parentPath}/Backend/index.php/api/admin/TransaksiPeminjaman/approve`,
+                        contentType: "application/x-www-form-urlencoded",
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        data: dataXURL,
+                        success: function(response) {
+                            alert("Operation success!");
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.status === 401) {
+                                alert("Anda belum login");
+                                window.location.href = "login.html";
+                            }else{
+                                var errorMessage = JSON.parse(xhr.responseText).message.id;
+                                alert(`Error deleting user: ${errorMessage}`);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        //batal
+        $(document).ready(function() {
+            $(document).on('click', '#batal', function(e) {
+                e.preventDefault();
+                var userConfirmed = confirm('Apakah anda yakin ingin membatalkan peminjaman buku ini?');
+                if (userConfirmed) {
+                    var userId = $(this).data('id');
+                    var formData = { id: userId };
+                    var dataXURL = $.param(formData);
+                    let token = localStorage.getItem('token');
+                    $.ajax({
+                        type: "DELETE",
+                        url: `http://localhost/${parentPath}/Backend/index.php/api/admin/TransaksiPeminjaman/batal`,
+                        contentType: "application/x-www-form-urlencoded",
+                        headers: {
+                            'Authorization': 'Bearer ' + token
                         },
                         data: dataXURL,
                         success: function(response) {
