@@ -18,9 +18,26 @@
     <script defer src="init.js"></script>
     <script defer>
         function unduhPDF() {
+            const lastTh = document.querySelector('#ohayo th:last-child');
+            const lastTd = document.querySelector('#ohayo td:last-child');
+
+            //ini di hilangkan sementara ygy:v
+            if (lastTh && lastTd) {
+                lastTh.style.display = 'none';
+                lastTd.style.display = 'none';
+            }
+
+            //simpan abis hilang:v
             window.jsPDF = window.jspdf.jsPDF
             const pdf = new jsPDF();
             pdf.autoTable({ html: `#ohayo` });
+
+            //ini di munculkan lagi ygy:v
+            if (lastTh && lastTd) {
+                lastTh.style.display = '';
+                lastTd.style.display = '';
+            }
+
             pdf.save(`HistoryPengembalian.pdf`);
         }
     </script>
