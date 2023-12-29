@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script defer src="init.js"></script>
     <title>LibraLyra</title>
 </head>
@@ -133,7 +135,7 @@ button {
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hovered">
+                    <table id="ohayo" class="table table-bordered table-hovered">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -189,6 +191,10 @@ button {
                             `;
                     });
                     $('#tbody').append(html);
+                    let table = new DataTable('#ohayo',{
+                        lengthMenu: [[5, 10, 15, 25, 1000000], [5, 10, 15, 25, "All"]],
+                        pageLength: 1000000
+                    });
                 },
                 error: function(xhr, status, error) {
                 if (xhr.status === 401) {

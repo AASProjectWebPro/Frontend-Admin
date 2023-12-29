@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Poppins&family=Varela&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="asset/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
@@ -140,7 +142,7 @@ button {
             </div>
             <button id="logout" style="margin-left: 110px;" class="icon"><i class="fa fa-door-open  fa-2x"></i></button>
         </nav>
-        <div class="card" style="margin: 20px;padding: 20px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);">
+        <div class="card" style="margin: 20px;padding: 20px;box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); ">
             <div class="card-header" style="font-size: 20px; font-weight: bold;">
                 History Pengembalian
                 <button onclick="unduhPDF()" class="btn btn-success float-right" style="width: fit-content;height: 30px;color: white; display: flex;align-items: center;justify-content: center;">
@@ -199,6 +201,10 @@ button {
                             `;
                     });
                     $('#tbody').append(html);
+                    let table = new DataTable('#ohayo',{
+                        lengthMenu: [[5, 10, 15, 25, 1000000], [5, 10, 15, 25, "All"]],
+                        pageLength: 1000000
+                    });
                 },
                 error: function(xhr, status, error) {
                 if (xhr.status === 401) {
